@@ -1,6 +1,7 @@
 from flask_restx import Namespace, Resource
 
 from project.container import director_service
+from project.services.decorators import auth_requered
 from project.setup.api.models import director
 from project.setup.api.parsers import page_parser
 
@@ -9,6 +10,7 @@ api = Namespace('directors')
 
 @api.route('/')
 class DirectorsView(Resource):
+    @auth_requered
     @api.expect(page_parser)
     @api.marshal_with(director, as_list=True, code=200, description='OK')
     def get(self):
@@ -20,6 +22,7 @@ class DirectorsView(Resource):
 
 @api.route('/<int:director_id>/')
 class DirectorView(Resource):
+    @auth_requered
     @api.response(404, 'Not Found')
     @api.marshal_with(director, code=200, description='OK')
     def get(self, director_id: int):

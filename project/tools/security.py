@@ -25,7 +25,6 @@ def compare_passwords_hash(password_hash, other_password) -> bool:
 
 
 def generate_tokens(email, password, password_hash=None, is_refresh=False):
-
     if email is None:
         return None
 
@@ -60,10 +59,11 @@ def approved_refresh_token(refresh_token):
 
     return generate_tokens(email, password, is_refresh=True)
 
+
 def get_data_from_token(refresh_token):
     try:
         data = jwt.decode(refresh_token, key=current_app.config['SECRET_KEY'],
-                      algorithms=current_app.config['ALGORITHM'])
+                          algorithms=current_app.config['ALGORITHM'])
 
         return data
     except Exception:
