@@ -1,0 +1,7 @@
+version: "3.3"
+
+services:
+  app:
+    image: mmisyura/flask-app:version-1
+    ports:
+      - 80:80
