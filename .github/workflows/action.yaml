@@ -23,14 +23,14 @@ jobs:
       - name: render configs
         run: |
           mkdir skypro
-          cat docker-compose-server.yaml | envsubst > skypro/docker-compose-server.yaml
+          cat docker-compose-server.yaml | envsubst > skypro/docker-compose.yaml
       - name: clone files to server
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
-          source: "skypro/docker-compose-server.yaml"
+          source: "skypro/docker-compose.yaml"
           target: "flask-app"
           strip_components: 1
       - name: run docker-compose
